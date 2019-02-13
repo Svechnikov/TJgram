@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#dddddd</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="textColorPrimary">#555555</color>
+
+    <color name="defaultBackground">#ffffff</color>
+
+    <color name="likePlus">#07A23B</color>
+    <color name="likeMinus">#FF0000</color>
+    <color name="likeNeutral">#777777</color>
+
+    <color name="avatarPlaceholder">#cccccc</color>
+    <color name="postImagePlaceholder">#cccccc</color>
+    <color name="selectImagePlaceholder">#cccccc</color>
+    <color name="sendImagePlaceholder">#cccccc</color>
+
+    <color name="bottomNavigation">#ffffff</color>
+    <color name="bottomNavigationItem">#333333</color>
+    <color name="bottomNavigationItemActive">#333333</color>
+
+    <color name="qrScannerFrame">#ffffff</color>
+    <color name="qrScannerAutoFocusButton">#ffffff</color>
+    <color name="qrScannerFlashButton">#ffffff</color>
+    <color name="qrScannerMask">#77000000</color>
+
+
+</resources>

@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TJgram</string>
+
+    <string name="timeline_title">TJgram</string>
+    <string name="select_image_title">Select image</string>
+    <string name="send_image_title">Send image</string>
+    <string name="select_auth_method_title">Select authentication method</string>
+    <string name="qr_auth_title">Authenticate with QR-code</string>
+
+    <string name="generic_cancel">Cancel</string>
+    <string name="generic_ok">OK</string>
+
+    <string name="auth_with_qr">Authenticate with QR-code</string>
+    <string name="qr_auth_camera_permission_rationale">In order to authenticate with qr code you should enable the camera permission.</string>
+    <string name="qr_auth_camera_permission_settings_rationale">In order to authenticate with qr code you should enable the camera permission. Please, go to settings and enable Camera permission</string>
+
+    <string name="select_image_permission_rationale">In order to select images from the local storage you should enable this permission.</string>
+    <string name="select_image_permission_settings_rationale">Please, go to settings and enable the external storage permission</string>
+    <string name="select_image_too_large_error">Image is too large (%1$.2fMB). Max size is %2$.2fMB.</string>
+    <string name="select_image_invalid_dimensions">Image has invalid dimensions %s.</string>
+
+    <string name="no_connection_error">Please, enable connection and try again</string>
+    <string name="generic_error">An error occurred. Try again later or contact the developer.</string>
+
+    <string name="add_post_no_images">No images</string>
+
+    <string name="send_image_hint_title">Enter title</string>
+    <string name="send_image_hint_text">Enter text</string>
+    <string name="send_image_in_progress">Uploading...</string>
+    <string name="send_image_success">The image has been successfully uploaded!</string>
+</resources>
