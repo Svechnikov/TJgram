@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@color/defaultBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/coordinator"
+                android:layout_above="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        app:title="@string/app_name"
+                        app:titleTextColor="@color/textColorPrimary"
+                        android:layout_height="@dimen/toolbar_height"
+                        android:layout_width="match_parent" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <fragment android:name="androidx.navigation.fragment.NavHostFragment"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:navGraph="@navigation/main"
+                      app:defaultNavHost="true"
+                      android:id="@+id/fragment" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:itemIconTint="@drawable/bottom_navigation_state"
+                app:itemTextColor="@drawable/bottom_navigation_state"
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:background="@color/bottomNavigation"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation" />
+    </RelativeLayout>
+</layout>

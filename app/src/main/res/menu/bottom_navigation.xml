@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/timelineFragment"
+          android:title=""
+          android:icon="@drawable/ic_home" />
+    <item android:id="@+id/action_search"
+          android:title=""
+          android:icon="@drawable/ic_search" />
+    <item android:id="@+id/selectImageFragment"
+          android:title=""
+          android:icon="@drawable/ic_add" />
+    <item android:id="@+id/action_heart"
+          android:title=""
+          android:icon="@drawable/ic_heart" />
+    <item android:id="@+id/action_profile"
+          android:title=""
+          android:icon="@drawable/ic_profile" />
+</menu>

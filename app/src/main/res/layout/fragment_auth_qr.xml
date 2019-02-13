@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                         android:layout_width="match_parent"
+                                                         android:layout_height="match_parent">
+        <com.budiyev.android.codescanner.CodeScannerView
+                android:id="@+id/scanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:autoFocusButtonColor="@color/qrScannerAutoFocusButton"
+                app:autoFocusButtonVisible="true"
+                app:flashButtonColor="@color/qrScannerFlashButton"
+                app:flashButtonVisible="true"
+                app:frameColor="@color/qrScannerFrame"
+                app:frameCornersSize="@dimen/qr_scanner_frame_corners_size"
+                app:frameCornersRadius="@dimen/qr_scanner_frame_corners_radius"
+                app:frameAspectRatioWidth="@integer/qr_scanner_frame_aspect_ratio_width"
+                app:frameAspectRatioHeight="@integer/qr_scanner_frame_aspect_ratio_height"
+                app:frameSize="@dimen/qr_scanner_frame_size"
+                app:frameThickness="@dimen/qr_scanner_frame_thickness"
+                app:maskColor="@color/qrScannerMask" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="image"
+                  type="io.svechnikov.tjgram.features.addpost.sendimage.SendImageView" />
+        <import type="io.svechnikov.tjgram.R" />
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                         android:layout_width="match_parent"
+                                                         android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingTop="@dimen/send_image_padding_vertical"
+                android:paddingBottom="@dimen/send_image_padding_vertical"
+                android:paddingLeft="@dimen/send_image_padding_horizontal"
+                android:paddingRight="@dimen/send_image_padding_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView android:layout_width="@dimen/send_image_width"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/imageView"
+                       android:background="@color/sendImagePlaceholder"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintLeft_toLeftOf="parent"
+                       app:widthDimen="@{R.dimen.send_image_width}"
+                       app:imageUrl="@{image.path}"/>
+            <EditText
+                    android:hint="@string/send_image_hint_title"
+                    android:id="@+id/title"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:gravity="top"
+                    android:layout_marginLeft="@dimen/send_image_text_margin_left"
+                    app:layout_constraintLeft_toRightOf="@+id/imageView"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                    android:hint="@string/send_image_hint_text"
+                    android:id="@+id/text"
+                    android:inputType="text"
+                    android:imeOptions="actionSend"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:minLines="4"
+                    android:gravity="top"
+                    app:layout_constraintLeft_toLeftOf="@+id/title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/text"
+                    app:layout_constraintLeft_toLeftOf="@id/text"
+                    android:layout_marginTop="@dimen/send_image_button_margin_top"
+                    android:text="@string/generic_ok"
+                    android:id="@+id/send" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
