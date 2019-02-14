@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import io.svechnikov.tjgram.base.db.entities.Post
-import timber.log.Timber
 import java.lang.reflect.Type
 
 class TimelineDeserializer : JsonDeserializer<List<Post>> {
@@ -42,6 +41,7 @@ class TimelineDeserializer : JsonDeserializer<List<Post>> {
                 mediaRatio = width / height
 
                 val additionalData = cover.asJsonObject["additionalData"].asJsonObject
+                // странно, конечно, что тип видео mp4 h264 видео - gif
                 if (additionalData["type"].asString == "gif") {
                     videoUrl = cover.asJsonObject["url"].asString
                 }

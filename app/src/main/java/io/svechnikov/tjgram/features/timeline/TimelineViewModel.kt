@@ -11,13 +11,13 @@ import androidx.paging.toLiveData
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.schedulers.Schedulers
 import io.svechnikov.tjgram.base.db.BaseDatabase
 import io.svechnikov.tjgram.base.db.entities.Post
 import io.svechnikov.tjgram.base.exceptions.NoConnectionException
 import io.svechnikov.tjgram.base.exceptions.NotAuthenticatedException
 import io.svechnikov.tjgram.base.exceptions.ServiceException
 import io.svechnikov.tjgram.base.schedulers.Executors
+import io.svechnikov.tjgram.base.schedulers.Schedulers
 import io.svechnikov.tjgram.base.utils.PagingRequestHelper
 import io.svechnikov.tjgram.features.timeline.usecases.LikePost
 import io.svechnikov.tjgram.features.timeline.usecases.QueryTimeline
