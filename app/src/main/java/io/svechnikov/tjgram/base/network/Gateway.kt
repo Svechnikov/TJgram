@@ -81,6 +81,9 @@ class Gateway @Inject constructor(
 
         val attachmentBody = ArrayList<MultipartBody.Part>()
 
+        // todo найти способ сериализовать данные в запрос автоматически
+        // вообще, не совсем понятно, зачем слать объекты attaches целиком,
+        // ведь можно было бы обойтись одним идентификатором
         attachmentBody.add(MultipartBody.Part.createFormData("attaches[0][type]",
             null, RequestBody.create(plainMediaType, uploadedImage.type)))
 

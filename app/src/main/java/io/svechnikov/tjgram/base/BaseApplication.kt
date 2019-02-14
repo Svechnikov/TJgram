@@ -2,42 +2,35 @@ package io.svechnikov.tjgram.base
 
 import android.app.Activity
 import android.app.Application
-import android.app.Service
-import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.multidex.MultiDex
-import dagger.android.*
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
 import dagger.android.support.AndroidSupportInjection
 import io.svechnikov.tjgram.BuildConfig
 import io.svechnikov.tjgram.base.di.ApplicationComponent
 import io.svechnikov.tjgram.base.di.DaggerApplicationComponent
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.base.di.databinding.DaggerDefaultDataBindingComponent
-import io.svechnikov.tjgram.features.likesupdater.LikesUpdaterService
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class BaseApplication : Application(), HasActivityInjector, HasServiceInjector {
+class BaseApplication : Application(), HasActivityInjector {
 
     @Inject
     lateinit var injector: DispatchingAndroidInjector<Activity>
-
-    @Inject
-    lateinit var serviceInjector: DispatchingAndroidInjector<Service>
 
     lateinit var component: ApplicationComponent
 
     override fun activityInjector(): AndroidInjector<Activity> {
         return injector
-    }
-
-    override fun serviceInjector(): AndroidInjector<Service> {
-        return serviceInjector
     }
 
     override fun onCreate() {
@@ -57,8 +50,6 @@ class BaseApplication : Application(), HasActivityInjector, HasServiceInjector {
                 .setComponent(component).build())
 
         component.inject(this)
-
-        startService(Intent(this, LikesUpdaterService::class.java))
 
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity?,

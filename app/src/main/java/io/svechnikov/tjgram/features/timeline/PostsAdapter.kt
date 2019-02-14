@@ -174,7 +174,6 @@ class PostsAdapter(private val likesListener: LikesListener,
                         playWhenReady = true
 
                         if (lastPlayingPostId != it.postId) {
-
                             val mediaSource = mediaSourceFactory
                                 .createMediaSource(Uri.parse(it.videoUrl))
 
@@ -222,7 +221,8 @@ class PostsAdapter(private val likesListener: LikesListener,
         }
 
         override fun onPlayerError(error: ExoPlaybackException?) {
-
+            Timber.i("onPlayerError")
+            Timber.e(error)
         }
     }
 
