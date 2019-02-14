@@ -27,6 +27,7 @@ class PostsAdapter(private val likesListener: LikesListener,
 
     private var width = 0
     private var currentPlayingHolder: PostViewHolder? = null
+    private var lastPlayingPostId = -1L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -117,7 +118,6 @@ class PostsAdapter(private val likesListener: LikesListener,
         RecyclerView.ViewHolder(binding.root), Player.EventListener {
 
         private var isPlaying = false
-        private var lastPlayingPostId = -1L
 
         var post: PostView? = null
             set(item) {
@@ -168,7 +168,6 @@ class PostsAdapter(private val likesListener: LikesListener,
                     post?.let {
                         repeatMode = REPEAT_MODE_ALL
                         addListener(this@PostViewHolder)
-
                         videoComponent?.setVideoTextureView(binding.playerView)
 
                         playWhenReady = true
