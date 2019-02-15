@@ -2,6 +2,7 @@ package io.svechnikov.tjgram.base
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,10 +34,14 @@ class BaseApplication : Application(), HasActivityInjector {
         return injector
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
 
         MultiDex.install(this)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
