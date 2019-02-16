@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import io.svechnikov.tjgram.R
+import io.svechnikov.tjgram.base.MainEvent
 import io.svechnikov.tjgram.base.MainViewModel
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.databinding.FragmentSelectImageBinding
@@ -35,8 +34,6 @@ class SelectImageFragment : Fragment(), Injectable,
     private lateinit var viewModel: SelectImageViewModel
 
     private lateinit var binding: FragmentSelectImageBinding
-
-    private var snackbar: Snackbar? = null
 
     companion object {
         const val REQUEST_EXTERNAL_STORAGE = 1
@@ -73,7 +70,7 @@ class SelectImageFragment : Fragment(), Injectable,
                 viewModel.eventHandled()
                 when(event) {
                     is SelectImageEvent.ShowError -> {
-                        showError(event.message)
+                        mainViewModel.setEvent(MainEvent.ShowMessage(event.message))
                     }
                     is SelectImageEvent.OpenSendImage -> {
                         val action = SelectImageFragmentDirections
@@ -183,21 +180,6 @@ class SelectImageFragment : Fragment(), Injectable,
 
     private fun hasPermissions(): Boolean {
         return EasyPermissions.hasPermissions(context!!, Manifest.permission.READ_EXTERNAL_STORAGE)
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        snackbar?.dismiss()
-    }
-
-    private fun showError(errorMessage: String) {
-        snackbar?.dismiss()
-
-        snackbar = Snackbar.make(view as CoordinatorLayout,
-            errorMessage, Snackbar.LENGTH_LONG).apply {
-            show()
-        }
     }
 
     private fun initViews() {
