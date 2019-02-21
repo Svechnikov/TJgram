@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import io.svechnikov.tjgram.R
+import io.svechnikov.tjgram.base.SingleLiveEvent
 import io.svechnikov.tjgram.features.addpost.selectimage.usecases.*
 import javax.inject.Inject
 
@@ -18,8 +19,8 @@ class SelectImageViewModel @Inject constructor(
     private val checkAuth: CheckAuth
     ): ViewModel() {
 
-    private val eventMutable = MutableLiveData<SelectImageEvent?>()
-    val event: LiveData<SelectImageEvent?> = eventMutable
+    private val eventMutable = SingleLiveEvent<SelectImageEvent>()
+    val event: LiveData<SelectImageEvent> = eventMutable
 
     private val stateMutable = MutableLiveData<SelectImageState>()
     val state: LiveData<SelectImageState> = stateMutable
@@ -98,10 +99,6 @@ class SelectImageViewModel @Inject constructor(
                 eventMutable.value = SelectImageEvent.OpenSendImage(SelectImageView.id)
             }
         }
-    }
-
-    fun eventHandled() {
-        eventMutable.value = null
     }
 
     fun refreshFileImages() {

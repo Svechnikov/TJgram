@@ -50,14 +50,10 @@ class SelectAuthMethodFragment : Fragment(), Injectable {
         initViews()
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                viewModel.eventHandled()
-
-                when(it) {
-                    SelectAuthMethodEvent.NavigateToQr -> {
-                        navController().navigate(
-                            R.id.action_selectAuthMethodFragment_to_qrAuthFragment)
-                    }
+            when(it) {
+                SelectAuthMethodEvent.NavigateToQr -> {
+                    navController().navigate(
+                        R.id.action_selectAuthMethodFragment_to_qrAuthFragment)
                 }
             }
         })

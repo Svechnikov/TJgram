@@ -11,6 +11,7 @@ import androidx.paging.toLiveData
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import io.svechnikov.tjgram.R
+import io.svechnikov.tjgram.base.SingleLiveEvent
 import io.svechnikov.tjgram.base.db.BaseDatabase
 import io.svechnikov.tjgram.base.db.entities.Post
 import io.svechnikov.tjgram.base.exceptions.NoConnectionException
@@ -42,7 +43,7 @@ class TimelineViewModel @Inject constructor(
 
     private val sortingMutable = MutableLiveData<Post.Sorting>()
     private val stateMutable = MutableLiveData<TimelineState>()
-    private val eventMutable = MutableLiveData<TimelineEvent>()
+    private val eventMutable = SingleLiveEvent<TimelineEvent>()
 
     private val scrollSubject = PublishSubject.create<Unit>()
     private val scrollDisposable: Disposable
@@ -102,7 +103,7 @@ class TimelineViewModel @Inject constructor(
         )
     }
 
-    val event: LiveData<TimelineEvent?> = eventMutable
+    val event: LiveData<TimelineEvent> = eventMutable
 
     val state: LiveData<TimelineState> = stateMutable
 
@@ -145,10 +146,6 @@ class TimelineViewModel @Inject constructor(
 
     fun likePostPlus(post: PostView) {
         likePost(post, 1)
-    }
-
-    fun eventHandled() {
-        eventMutable.value = null
     }
 
     fun onScroll() {

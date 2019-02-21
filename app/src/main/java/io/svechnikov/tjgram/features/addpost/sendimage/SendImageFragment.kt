@@ -63,18 +63,14 @@ class SendImageFragment : Fragment(), Injectable {
         mainViewModel.setBottomBarVisibility(false)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                viewModel.eventHandled()
-
-                when(it) {
-                    is SendImageEvent.ShowError -> {
-                        mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
-                    }
-                    is SendImageEvent.Success -> {
-                        mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
-                        navController().navigate(
-                            SendImageFragmentDirections.actionSendImageFragmentToTimelineFragment())
-                    }
+            when(it) {
+                is SendImageEvent.ShowError -> {
+                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+                }
+                is SendImageEvent.Success -> {
+                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+                    navController().navigate(
+                        SendImageFragmentDirections.actionSendImageFragmentToTimelineFragment())
                 }
             }
         })

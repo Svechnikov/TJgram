@@ -66,27 +66,24 @@ class SelectImageFragment : Fragment(), Injectable,
         mainViewModel.setBottomBarVisibility(false)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            it?.let {event ->
-                viewModel.eventHandled()
-                when(event) {
-                    is SelectImageEvent.ShowError -> {
-                        mainViewModel.setEvent(MainEvent.ShowMessage(event.message))
-                    }
-                    is SelectImageEvent.OpenSendImage -> {
-                        val action = SelectImageFragmentDirections
-                            .actionSelectImageFragmentToSendImageFragment(event.imageId)
-                        navController().navigate(action)
-                    }
-                    SelectImageEvent.GoBack -> {
-                        navController().popBackStack()
-                    }
-                    SelectImageEvent.NavigateToAuth -> {
-                        navController().navigate(
-                            R.id.action_selectImageFragment_to_selectAuthMethodFragment)
-                    }
-                    SelectImageEvent.RequestPermissions -> {
-                        requestPermissions()
-                    }
+            when(it) {
+                is SelectImageEvent.ShowError -> {
+                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+                }
+                is SelectImageEvent.OpenSendImage -> {
+                    val action = SelectImageFragmentDirections
+                        .actionSelectImageFragmentToSendImageFragment(it.imageId)
+                    navController().navigate(action)
+                }
+                SelectImageEvent.GoBack -> {
+                    navController().popBackStack()
+                }
+                SelectImageEvent.NavigateToAuth -> {
+                    navController().navigate(
+                        R.id.action_selectImageFragment_to_selectAuthMethodFragment)
+                }
+                SelectImageEvent.RequestPermissions -> {
+                    requestPermissions()
                 }
             }
         })
