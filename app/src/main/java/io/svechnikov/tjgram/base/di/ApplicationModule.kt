@@ -79,6 +79,7 @@ abstract class ApplicationModule {
                     val height = displayMetrics.heightPixels
 
                     size = "; ${width}x$height"
+                    break
                 }
             }
 

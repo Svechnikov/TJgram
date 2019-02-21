@@ -87,19 +87,16 @@ class TimelineFragment : Fragment(), Injectable {
         })
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            it?.let {event ->
-                viewModel.eventHandled()
-                when(event) {
-                    is TimelineEvent.ShowError -> {
-                        mainViewModel.setEvent(MainEvent.ShowMessage(event.message))
-                    }
-                    TimelineEvent.NavigateToAuth -> {
-                        navController().navigate(
-                            R.id.action_timelineFragment_to_selectAuthMethodFragment)
-                    }
-                    TimelineEvent.Scroll -> {
-                        checkPlayback()
-                    }
+            when(it) {
+                is TimelineEvent.ShowError -> {
+                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+                }
+                TimelineEvent.NavigateToAuth -> {
+                    navController().navigate(
+                        R.id.action_timelineFragment_to_selectAuthMethodFragment)
+                }
+                TimelineEvent.Scroll -> {
+                    checkPlayback()
                 }
             }
         })

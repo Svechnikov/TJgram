@@ -63,22 +63,19 @@ class QrAuthFragment : Fragment(), Injectable,
         initScannerView()
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when(it) {
-                    is QrAuthEvent.Success -> {
-                        navController().navigate(
-                            QrAuthFragmentDirections.actionQrAuthFragmentToTimelineFragment())
-                    }
-                    is QrAuthEvent.CloseWithError -> {
-                        mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
-
-                        navController().popBackStack()
-                    }
-                    QrAuthEvent.RequestPermissions -> {
-                        requestCameraPermissions()
-                    }
+            when(it) {
+                is QrAuthEvent.Success -> {
+                    navController().navigate(
+                        QrAuthFragmentDirections.actionQrAuthFragmentToTimelineFragment())
                 }
-                viewModel.eventHandled()
+                is QrAuthEvent.CloseWithError -> {
+                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+
+                    navController().popBackStack()
+                }
+                QrAuthEvent.RequestPermissions -> {
+                    requestCameraPermissions()
+                }
             }
         })
 

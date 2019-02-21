@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import io.svechnikov.tjgram.R
+import io.svechnikov.tjgram.base.SingleLiveEvent
 import io.svechnikov.tjgram.base.data.LocalImage
 import io.svechnikov.tjgram.features.addpost.sendimage.usecases.FetchImage
 import io.svechnikov.tjgram.features.addpost.sendimage.usecases.SendImage
@@ -31,8 +32,8 @@ class SendImageViewModel @Inject constructor(
         SendImageView(path)
     }
 
-    private val eventMutable = MutableLiveData<SendImageEvent?>()
-    val event: LiveData<SendImageEvent?> = eventMutable
+    private val eventMutable = SingleLiveEvent<SendImageEvent>()
+    val event: LiveData<SendImageEvent> = eventMutable
 
     private val stateMutable = MutableLiveData<SendImageState>()
     val state: LiveData<SendImageState> = stateMutable
@@ -50,10 +51,6 @@ class SendImageViewModel @Inject constructor(
                 })
             }
         }
-    }
-
-    fun eventHandled() {
-        eventMutable.value = null
     }
 
     fun send(title: String, text: String) {
