@@ -1,11 +1,11 @@
-package io.svechnikov.tjgram.features.timeline
+package io.svechnikov.tjgram.features.timeline.child
 
 import androidx.paging.PagedList
 import io.reactivex.schedulers.Schedulers
 import io.svechnikov.tjgram.base.db.entities.Post
 import io.svechnikov.tjgram.base.schedulers.Executors
 import io.svechnikov.tjgram.base.utils.PagingRequestHelper
-import io.svechnikov.tjgram.features.timeline.usecases.QueryTimeline
+import io.svechnikov.tjgram.features.timeline.child.usecases.QueryTimeline
 
 class TimelineBoundaryCallback(
     private val queryTimeline: QueryTimeline,

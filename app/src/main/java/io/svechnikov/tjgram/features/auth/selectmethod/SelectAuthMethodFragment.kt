@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.MainViewModel
+import io.svechnikov.tjgram.features.main.MainViewModel
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.databinding.FragmentAuthSelectMethodBinding
 import javax.inject.Inject
@@ -46,6 +46,7 @@ class SelectAuthMethodFragment : Fragment(), Injectable {
             activity!!, viewModelFactory)[MainViewModel::class.java]
 
         mainViewModel.setBottomBarVisibility(false)
+        mainViewModel.setToolbarScrollable(false)
 
         initViews()
 

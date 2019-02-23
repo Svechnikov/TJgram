@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.timeline
+package io.svechnikov.tjgram.features.timeline.child
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.MainEvent
-import io.svechnikov.tjgram.base.MainViewModel
+import io.svechnikov.tjgram.features.main.MainEvent
+import io.svechnikov.tjgram.features.main.MainViewModel
 import io.svechnikov.tjgram.base.db.entities.Post
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.databinding.FragmentTimelineBinding
+import io.svechnikov.tjgram.features.timeline.parent.TimelineParentState
+import io.svechnikov.tjgram.features.timeline.parent.TimelineParentViewModel
 import javax.inject.Inject
 
 
@@ -30,17 +29,28 @@ class TimelineFragment : Fragment(), Injectable {
 
     private lateinit var postsAdapter: PostsAdapter
 
-    private lateinit var layoutManager: LinearLayoutManager
-
     private lateinit var viewModel: TimelineViewModel
 
     private lateinit var binding: FragmentTimelineBinding
 
-    private var wasRefreshing = false
+    private var resetPositionAfterUpdate = false
 
     private var checkedPlaybackOnViewCreate = false
 
-    fun navController() = findNavController()
+    private var isSelected = false
+
+    companion object {
+        private const val EXTRA_SORTING = "sorting"
+
+        fun newInstance(sorting: Post.Sorting): Fragment {
+            return TimelineFragment().apply {
+                val args = Bundle()
+                args.putInt(EXTRA_SORTING, sorting.ordinal)
+
+                arguments = args
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -60,19 +70,18 @@ class TimelineFragment : Fragment(), Injectable {
         val mainViewModel = ViewModelProviders.of(
             activity!!, viewModelFactory)[MainViewModel::class.java]
 
-        mainViewModel.setBottomBarVisibility(true)
-
         initViews()
 
-        viewModel.setSorting(Post.Sorting.NEW)
+        val currentSorting = Post.Sorting.values()[arguments!![EXTRA_SORTING] as Int]
+
+        viewModel.setSorting(currentSorting)
 
         viewModel.posts.observe(viewLifecycleOwner, Observer {posts ->
-            (binding.posts.adapter as PostsAdapter).submitList(posts)
-            if (wasRefreshing) {
-                wasRefreshing = false
-                binding.posts.post {
-                    binding.posts.scrollToPosition(0)
-                }
+            postsAdapter.submitList(posts)
+            if (resetPositionAfterUpdate) {
+                resetPositionAfterUpdate = false
+                binding.posts.scrollToPosition(0)
+                binding.posts.invalidate()
             }
         })
         viewModel.state.observe(viewLifecycleOwner, Observer {state ->
@@ -86,14 +95,35 @@ class TimelineFragment : Fragment(), Injectable {
             }
         })
 
+        val parentViewModel = ViewModelProviders.of(
+            parentFragment!!, viewModelFactory)[TimelineParentViewModel::class.java]
+
+        parentViewModel.state.observe(viewLifecycleOwner, Observer {
+            if (it is TimelineParentState.ShowPage) {
+
+                when(it.sorting) {
+                    currentSorting -> {
+                        isSelected = true
+                        binding.root.post {
+                            postsAdapter.resumePlaybackIfNecessary()
+                        }
+
+                    }
+                    else -> {
+                        isSelected = false
+                        postsAdapter.pausePlaybackIfNecessary()
+                    }
+                }
+            }
+        })
+
         viewModel.event.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is TimelineEvent.ShowError -> {
                     mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
                 }
                 TimelineEvent.NavigateToAuth -> {
-                    navController().navigate(
-                        R.id.action_timelineFragment_to_selectAuthMethodFragment)
+                    parentViewModel.onNavigateToAuth()
                 }
                 TimelineEvent.Scroll -> {
                     checkPlayback()
@@ -105,19 +135,24 @@ class TimelineFragment : Fragment(), Injectable {
     override fun onPause() {
         super.onPause()
 
-        postsAdapter.pausePlaybackIfNecessary()
+        if (isSelected) {
+            postsAdapter.pausePlaybackIfNecessary()
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        postsAdapter.resumePlaybackIfNecessary()
+        if (isSelected) {
+            postsAdapter.resumePlaybackIfNecessary()
+        }
     }
 
     private fun initViews() {
         binding.posts.setHasFixedSize(false)
         binding.posts.itemAnimator = null
-        postsAdapter = postsAdapterFactory.create(object: PostsAdapter.LikesListener {
+        postsAdapter = postsAdapterFactory.create(object:
+            PostsAdapter.LikesListener {
             override fun onMinus(post: PostView) {
                 viewModel.likePostMinus(post)
             }
@@ -127,9 +162,8 @@ class TimelineFragment : Fragment(), Injectable {
             }
         })
         binding.posts.adapter = postsAdapter
-        layoutManager = binding.posts.layoutManager as LinearLayoutManager
         binding.refresh.setOnRefreshListener {
-            wasRefreshing = true
+            resetPositionAfterUpdate = true
             viewModel.refresh()
         }
         binding.posts.addOnScrollListener(object: RecyclerView.OnScrollListener() {

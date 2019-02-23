@@ -17,7 +17,10 @@ class ValidateLocalImage @Inject constructor(
 
 
         if (image.size > MAX_SIZE) {
-            throw TooLargeImageSizeException(image.size, MAX_SIZE)
+            throw TooLargeImageSizeException(
+                image.size,
+                MAX_SIZE
+            )
         }
 
         // по непонятным причинам ContentResolver может отдавать размеры 0х0

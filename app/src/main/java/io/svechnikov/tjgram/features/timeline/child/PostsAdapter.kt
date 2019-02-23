@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.timeline
+package io.svechnikov.tjgram.features.timeline.child
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -23,11 +23,12 @@ class PostsAdapter(private val likesListener: LikesListener,
                    private val picasso: Picasso,
                    private val videoPlayer: ExoPlayer,
                    private val mediaSourceFactory: ExtractorMediaSource.Factory) :
-    PagedListAdapter<PostView, PostsAdapter.PostViewHolder>(DIFF_CALLBACK) {
+    PagedListAdapter<PostView, PostsAdapter.PostViewHolder>(
+        DIFF_CALLBACK
+    ) {
 
     private var width = 0
     private var currentPlayingHolder: PostViewHolder? = null
-    private var lastPlayingPostId = -1L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -93,12 +94,14 @@ class PostsAdapter(private val likesListener: LikesListener,
     companion object {
         private val DIFF_CALLBACK = object: DiffUtil.ItemCallback<PostView>() {
             override fun areItemsTheSame(oldItem: PostView,
-                                         newItem: PostView): Boolean {
+                                         newItem: PostView
+            ): Boolean {
                 return oldItem.postId == newItem.postId
             }
 
             override fun areContentsTheSame(oldItem: PostView,
-                                            newItem: PostView): Boolean {
+                                            newItem: PostView
+            ): Boolean {
                 return oldItem.postId == newItem.postId &&
                         oldItem.likes == newItem.likes &&
                         oldItem.isLiked == newItem.isLiked
@@ -110,7 +113,12 @@ class PostsAdapter(private val likesListener: LikesListener,
                                       private val player: ExoPlayer,
                                       private val mediaSourceFactory: ExtractorMediaSource.Factory) {
         fun create(likesListener: LikesListener): PostsAdapter {
-            return PostsAdapter(likesListener, picasso, player, mediaSourceFactory)
+            return PostsAdapter(
+                likesListener,
+                picasso,
+                player,
+                mediaSourceFactory
+            )
         }
     }
 
@@ -138,6 +146,8 @@ class PostsAdapter(private val likesListener: LikesListener,
                 }
 
                 binding.root.tag = this
+
+                binding.executePendingBindings()
 
                 field = item
             }
@@ -172,15 +182,12 @@ class PostsAdapter(private val likesListener: LikesListener,
 
                         playWhenReady = true
 
-                        if (lastPlayingPostId != it.postId) {
-                            val mediaSource = mediaSourceFactory
-                                .createMediaSource(Uri.parse(it.videoUrl))
+                        val mediaSource = mediaSourceFactory
+                            .createMediaSource(Uri.parse(it.videoUrl))
 
-                            prepare(mediaSource)
+                        prepare(mediaSource)
 
-                            seekTo(it.videoPosition)
-                        }
-                        lastPlayingPostId = it.postId
+                        seekTo(it.videoPosition)
                     }
                 }
             }

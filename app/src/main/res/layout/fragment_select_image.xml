@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
-                                                               android:layout_height="match_parent"
-                                                               android:id="@+id/refresh">
-            <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       android:id="@+id/images"
-                                                       app:spanCount="@integer/select_images_columns_count"
-                                                       app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                             android:id="@+id/coordinator"
+                                                             android:layout_above="@+id/tabs"
+                                                             android:layout_height="match_parent">
+            <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.tabs.TabLayout android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_alignParentBottom="true"
+                                                    android:id="@+id/tabs">
+            <com.google.android.material.tabs.TabItem android:layout_width="wrap_content"
+                                                      android:layout_height="wrap_content"
+                                                      android:text="@string/pick_image_tab"/>
+            <com.google.android.material.tabs.TabItem android:layout_width="wrap_content"
+                                                      android:layout_height="wrap_content"
+                                                      android:text="@string/take_photo_tab"/>
+        </com.google.android.material.tabs.TabLayout>
+
+    </RelativeLayout>
 </layout>

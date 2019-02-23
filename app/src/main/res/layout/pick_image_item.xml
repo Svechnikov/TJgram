@@ -2,7 +2,7 @@
 <layout>
     <data>
         <variable name="localImage"
-                  type="io.svechnikov.tjgram.features.addpost.selectimage.SelectImageView" />
+                  type="io.svechnikov.tjgram.features.addpost.selectimage.pickimage.PickImageView" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

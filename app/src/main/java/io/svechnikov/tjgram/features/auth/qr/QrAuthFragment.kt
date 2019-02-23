@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.*
 import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.MainEvent
-import io.svechnikov.tjgram.base.MainViewModel
+import io.svechnikov.tjgram.features.main.MainEvent
+import io.svechnikov.tjgram.features.main.MainViewModel
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.databinding.FragmentAuthQrBinding
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -59,22 +59,26 @@ class QrAuthFragment : Fragment(), Injectable,
             activity!!, viewModelFactory)[MainViewModel::class.java]
 
         mainViewModel.setBottomBarVisibility(false)
+        mainViewModel.setToolbarScrollable(false)
 
         initScannerView()
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                is QrAuthEvent.Success -> {
-                    navController().navigate(
-                        QrAuthFragmentDirections.actionQrAuthFragmentToTimelineFragment())
-                }
-                is QrAuthEvent.CloseWithError -> {
-                    mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
+            it?.let {
+                viewModel.eventHandled()
+                when(it) {
+                    is QrAuthEvent.Success -> {
+                        navController().navigate(
+                            QrAuthFragmentDirections.actionQrAuthFragmentToTimelineParentFragment())
+                    }
+                    is QrAuthEvent.CloseWithError -> {
+                        mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
 
-                    navController().popBackStack()
-                }
-                QrAuthEvent.RequestPermissions -> {
-                    requestCameraPermissions()
+                        navController().popBackStack()
+                    }
+                    QrAuthEvent.RequestPermissions -> {
+                        requestCameraPermissions()
+                    }
                 }
             }
         })
@@ -155,6 +159,7 @@ class QrAuthFragment : Fragment(), Injectable,
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this)
+                .setTitle(R.string.generic_rationale_dialog_title)
                 .setRationale(R.string.qr_auth_camera_permission_settings_rationale)
                 .setPositiveButton(R.string.generic_ok)
                 .setNegativeButton(R.string.generic_cancel)

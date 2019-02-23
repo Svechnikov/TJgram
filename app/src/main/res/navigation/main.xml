@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/navigation" app:startDestination="@id/timelineFragment">
+            android:id="@+id/navigation" app:startDestination="@id/timelineParentFragment">
 
-    <fragment android:id="@+id/timelineFragment" android:name="io.svechnikov.tjgram.features.timeline.TimelineFragment"
+    <fragment android:id="@+id/timelineParentFragment" android:name="io.svechnikov.tjgram.features.timeline.parent.TimelineParentFragment"
               android:label="@string/timeline_title">
-        <action android:id="@+id/action_timelineFragment_to_selectImageFragment"
+        <action android:id="@+id/action_timelineParentFragment_to_selectImageFragment"
                 app:destination="@id/selectImageFragment"/>
-        <action android:id="@+id/action_timelineFragment_to_selectAuthMethodFragment"
+        <action android:id="@+id/action_timelineParentFragment_to_selectAuthMethodFragment"
                 app:destination="@id/selectAuthMethodFragment"/>
     </fragment>
     <fragment android:id="@+id/selectAuthMethodFragment"
@@ -18,8 +18,8 @@
     </fragment>
     <fragment android:id="@+id/qrAuthFragment" android:name="io.svechnikov.tjgram.features.auth.qr.QrAuthFragment"
               android:label="@string/qr_auth_title">
-        <action android:id="@+id/action_qrAuthFragment_to_timelineFragment" app:destination="@id/timelineFragment"
-                app:popUpTo="@+id/timelineFragment" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_qrAuthFragment_to_timelineParentFragment" app:destination="@id/timelineParentFragment"
+                app:popUpTo="@+id/timelineParentFragment" app:popUpToInclusive="true"/>
     </fragment>
     <fragment android:id="@+id/selectImageFragment"
               android:name="io.svechnikov.tjgram.features.addpost.selectimage.SelectImageFragment"
@@ -33,7 +33,7 @@
               android:name="io.svechnikov.tjgram.features.addpost.sendimage.SendImageFragment"
               android:label="@string/send_image_title">
         <argument android:name="imageId" app:argType="integer"/>
-        <action android:id="@+id/action_sendImageFragment_to_timelineFragment" app:destination="@id/timelineFragment"
-                app:popUpTo="@+id/timelineFragment" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_sendImageFragment_to_timelineParentFragment" app:destination="@id/timelineParentFragment"
+                app:popUpTo="@+id/timelineParentFragment" app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

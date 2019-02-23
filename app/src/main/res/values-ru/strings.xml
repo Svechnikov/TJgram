@@ -3,11 +3,17 @@
     <string name="app_name">TJgram</string>
 
     <string name="timeline_title">TJgram</string>
+    <string name="timeline_tab_new">Новые</string>
+    <string name="timeline_tab_week">За неделю</string>
+    <string name="timeline_tab_month">За месяц</string>
+    <string name="timeline_tab_year">За год</string>
+
     <string name="select_image_title">Выбрать фотографию</string>
     <string name="send_image_title">Отправить фотографию</string>
     <string name="select_auth_method_title">Выбрать способ авторизации</string>
     <string name="qr_auth_title">QR-авторизация</string>
 
+    <string name="generic_rationale_dialog_title">Нужно предоставить разрешения</string>
     <string name="generic_cancel">Отмена</string>
     <string name="generic_ok">ОК</string>
 
@@ -15,10 +21,19 @@
     <string name="qr_auth_camera_permission_rationale">Чтобы авторизоваться при помощи QR-кода, нужно дать доступ к камере.</string>
     <string name="qr_auth_camera_permission_settings_rationale">Чтобы авторизоваться при помощи QR-кода, нужно дать доступ к камере. Пожалуйста, сделайте это в настройках.</string>
 
-    <string name="select_image_permission_rationale">Чтобы выбирать фотографии, нужно дать доступ к файлам на внешнем хранилище.</string>
-    <string name="select_image_permission_settings_rationale">Чтобы выбирать фотографии, нужно дать доступ к файлам на внешнем хранилище. Пожалуйста, включите доступ к внешним файлам в настройках.</string>
-    <string name="select_image_too_large_error">Фотография слишком большая (%1$.2fMB). Максимальный размер %2$.2fMB.</string>
-    <string name="select_image_invalid_dimensions">У фотографии недопустимое разрешение %s.</string>
+    <string name="take_photo_tab">Фото</string>
+    <string name="pick_image_tab">Галерея</string>
+
+    <string name="pick_image_permission_rationale">Чтобы выбирать фотографии, нужно дать доступ к файлам на внешнем хранилище.</string>
+    <string name="pick_image_permission_settings_rationale">Чтобы выбирать фотографии, нужно дать доступ к файлам на внешнем хранилище. Пожалуйста, включите доступ к внешним файлам в настройках.</string>
+    <string name="pick_image_permissions_rejected">Включите разрешение на доступ к внешнему хранилищу</string>
+    <string name="pick_image_too_large_error">Фотография слишком большая (%1$.2fMB). Максимальный размер %2$.2fMB.</string>
+    <string name="pick_image_invalid_dimensions">У фотографии недопустимое разрешение %s.</string>
+    
+    <string name="take_photo_permission_rationale">Чтобы делать фотографии, нужно дать доступ к камере.</string>
+    <string name="take_photo_permission_settings_rationale">Чтобы делать фотографии, нужно дать доступ к камере. Пожалуйста, включите доступ к камере в настройках.</string>
+    <string name="take_photo_permissions_rejected">Включите разрешение на доступ к камере</string>
+    <string name="take_photo_camera_error">Произошла ошибка при использовании камеры</string>
 
     <string name="no_connection_error">Пожалуйста, подключитесь к сети и попробуйте снова.</string>
     <string name="generic_error">Произошла ошибка. Повторите попытку ещё раз или обратитесь к разработчику.</string>

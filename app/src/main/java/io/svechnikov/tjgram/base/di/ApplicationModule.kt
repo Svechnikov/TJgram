@@ -93,8 +93,8 @@ abstract class ApplicationModule {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
             return OkHttpClient.Builder()
                 .connectTimeout(2, TimeUnit.SECONDS)
-                .readTimeout(2, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor{chain ->
                     val requestBuilder = chain.request()

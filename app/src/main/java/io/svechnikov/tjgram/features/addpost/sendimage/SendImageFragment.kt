@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.MainEvent
-import io.svechnikov.tjgram.base.MainViewModel
+import io.svechnikov.tjgram.features.main.MainEvent
+import io.svechnikov.tjgram.features.main.MainViewModel
 import io.svechnikov.tjgram.base.di.Injectable
 import io.svechnikov.tjgram.base.di.ViewModelFactory
 import io.svechnikov.tjgram.databinding.FragmentSendImageBinding
@@ -61,6 +61,7 @@ class SendImageFragment : Fragment(), Injectable {
             activity!!, viewModelFactory)[MainViewModel::class.java]
 
         mainViewModel.setBottomBarVisibility(false)
+        mainViewModel.setToolbarScrollable(false)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
             when(it) {
@@ -70,7 +71,7 @@ class SendImageFragment : Fragment(), Injectable {
                 is SendImageEvent.Success -> {
                     mainViewModel.setEvent(MainEvent.ShowMessage(it.message))
                     navController().navigate(
-                        SendImageFragmentDirections.actionSendImageFragmentToTimelineFragment())
+                        SendImageFragmentDirections.actionSendImageFragmentToTimelineParentFragment())
                 }
             }
         })
