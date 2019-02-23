@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.addpost.selectimage
+package io.svechnikov.tjgram.features.addpost.selectimage.pickimage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,12 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import io.svechnikov.tjgram.databinding.SelectImageItemBinding
+import io.svechnikov.tjgram.databinding.PickImageItemBinding
 import javax.inject.Inject
 
 class ImagesAdapter constructor(private val picasso: Picasso,
-                                private val selectedListener: (SelectImageView) -> Unit
-): PagedListAdapter<SelectImageView, ImagesAdapter.ImageViewHolder>(
+                                private val selectedListener: (PickImageView) -> Unit
+): PagedListAdapter<PickImageView, ImagesAdapter.ImageViewHolder>(
     DIFF_CALLBACK
 ) {
 
@@ -21,7 +21,7 @@ class ImagesAdapter constructor(private val picasso: Picasso,
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = SelectImageItemBinding.inflate(inflater, parent, false)
+        val binding = PickImageItemBinding.inflate(inflater, parent, false)
 
         binding.root.setOnClickListener {
             binding.localImage?.let {
@@ -76,15 +76,15 @@ class ImagesAdapter constructor(private val picasso: Picasso,
     }
 
     companion object {
-        private val DIFF_CALLBACK = object: DiffUtil.ItemCallback<SelectImageView>() {
-            override fun areItemsTheSame(oldItem: SelectImageView,
-                                         newItem: SelectImageView
+        private val DIFF_CALLBACK = object: DiffUtil.ItemCallback<PickImageView>() {
+            override fun areItemsTheSame(oldItem: PickImageView,
+                                         newItem: PickImageView
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: SelectImageView,
-                                            newItem: SelectImageView
+            override fun areContentsTheSame(oldItem: PickImageView,
+                                            newItem: PickImageView
             ): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -92,12 +92,12 @@ class ImagesAdapter constructor(private val picasso: Picasso,
     }
 
     class Factory @Inject constructor(private val picasso: Picasso) {
-        fun create(selectedListener: (SelectImageView) -> Unit): ImagesAdapter {
+        fun create(selectedListener: (PickImageView) -> Unit): ImagesAdapter {
             return ImagesAdapter(picasso, selectedListener)
         }
     }
 
-    class ImageViewHolder(val binding: SelectImageItemBinding) :
+    class ImageViewHolder(val binding: PickImageItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
 

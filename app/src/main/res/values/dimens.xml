@@ -29,6 +29,9 @@
     <integer name="select_images_columns_count">4</integer>
     <dimen name="select_image_padding">1dp</dimen>
 
+    <dimen name="take_photo_button_size">50dp</dimen>
+    <dimen name="take_photo_button_margin_bottom">20dp</dimen>
+
     <dimen name="send_image_width">150dp</dimen>
     <dimen name="send_image_padding_vertical">20dp</dimen>
     <dimen name="send_image_padding_horizontal">10dp</dimen>

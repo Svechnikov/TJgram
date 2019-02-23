@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.base
+package io.svechnikov.tjgram.features.main
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -49,13 +50,9 @@ class MainActivity : AppCompatActivity(),
             viewModelFactory)[MainViewModel::class.java]
 
         viewModel.event.observe(this, Observer {
-            it?.let {
-                viewModel.eventHandled()
-
-                when(it) {
-                    is MainEvent.ShowMessage -> {
-                        showError(it.message)
-                    }
+            when(it) {
+                is MainEvent.ShowMessage -> {
+                    showError(it.message)
                 }
             }
         })
@@ -65,6 +62,21 @@ class MainActivity : AppCompatActivity(),
                 true -> View.VISIBLE
                 false -> View.GONE
             }
+        })
+
+        viewModel.toolBarScrollable.observe(this, Observer {
+            val params = binding.toolbar.layoutParams as AppBarLayout.LayoutParams
+
+            if (it) {
+                params.scrollFlags =
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS or
+                            AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+            }
+            else {
+                params.scrollFlags =
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+            }
+            binding.toolbar.requestLayout()
         })
 
         binding.toolbar.setupWithNavController(navController(), null)

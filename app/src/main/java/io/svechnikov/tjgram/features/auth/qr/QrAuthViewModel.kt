@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.svechnikov.tjgram.R
-import io.svechnikov.tjgram.base.SingleLiveEvent
 import io.svechnikov.tjgram.base.exceptions.NoConnectionException
 import io.svechnikov.tjgram.base.exceptions.ServiceException
 import javax.inject.Inject
@@ -15,8 +14,8 @@ class QrAuthViewModel @Inject constructor(
     private val context: Context
 ): ViewModel() {
 
-    private val eventMutable = SingleLiveEvent<QrAuthEvent>()
-    val event: LiveData<QrAuthEvent> = eventMutable
+    private val eventMutable = MutableLiveData<QrAuthEvent?>()
+    val event: LiveData<QrAuthEvent?> = eventMutable
 
     private val stateMutable = MutableLiveData<QrAuthState>()
     val state: LiveData<QrAuthState> = stateMutable
@@ -34,6 +33,10 @@ class QrAuthViewModel @Inject constructor(
 
     fun onGotPermissions() {
         stateMutable.value = QrAuthState.ShowScanner
+    }
+
+    fun eventHandled() {
+        eventMutable.value = null
     }
 
     fun onQrResult(token: String) {

@@ -6,12 +6,15 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import io.svechnikov.tjgram.base.MainViewModel
+import io.svechnikov.tjgram.features.main.MainViewModel
 import io.svechnikov.tjgram.features.addpost.selectimage.SelectImageViewModel
+import io.svechnikov.tjgram.features.addpost.selectimage.pickimage.PickImageViewModel
+import io.svechnikov.tjgram.features.addpost.selectimage.takephoto.TakePhotoViewModel
 import io.svechnikov.tjgram.features.addpost.sendimage.SendImageViewModel
 import io.svechnikov.tjgram.features.auth.qr.QrAuthViewModel
 import io.svechnikov.tjgram.features.auth.selectmethod.SelectAuthMethodViewModel
-import io.svechnikov.tjgram.features.timeline.TimelineViewModel
+import io.svechnikov.tjgram.features.timeline.parent.TimelineParentViewModel
+import io.svechnikov.tjgram.features.timeline.child.TimelineViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -49,8 +52,18 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(TimelineParentViewModel::class)
+    internal abstract fun timelineParentViewModel(viewModel: TimelineParentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(TimelineViewModel::class)
     internal abstract fun timelineViewModel(viewModel: TimelineViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -59,11 +72,16 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SendImageViewModel::class)
-    internal abstract fun sendImageViewModel(viewModel: SendImageViewModel): ViewModel
+    @ViewModelKey(PickImageViewModel::class)
+    internal abstract fun pickImageViewModel(viewModel: PickImageViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(TakePhotoViewModel::class)
+    internal abstract fun takePhotoViewModel(viewModel: TakePhotoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SendImageViewModel::class)
+    internal abstract fun sendImageViewModel(viewModel: SendImageViewModel): ViewModel
 }

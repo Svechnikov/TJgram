@@ -2,11 +2,17 @@
     <string name="app_name">TJgram</string>
 
     <string name="timeline_title">TJgram</string>
+    <string name="timeline_tab_new">New</string>
+    <string name="timeline_tab_week">Week</string>
+    <string name="timeline_tab_month">Month</string>
+    <string name="timeline_tab_year">Year</string>
+
     <string name="select_image_title">Select image</string>
     <string name="send_image_title">Send image</string>
     <string name="select_auth_method_title">Select authentication method</string>
     <string name="qr_auth_title">Authenticate with QR-code</string>
 
+    <string name="generic_rationale_dialog_title">Permissions required</string>
     <string name="generic_cancel">Cancel</string>
     <string name="generic_ok">OK</string>
 
@@ -14,10 +20,19 @@
     <string name="qr_auth_camera_permission_rationale">In order to authenticate with qr code you should enable the camera permission.</string>
     <string name="qr_auth_camera_permission_settings_rationale">In order to authenticate with qr code you should enable the camera permission. Please, go to settings and enable Camera permission</string>
 
-    <string name="select_image_permission_rationale">In order to select images from the local storage you should enable this permission.</string>
-    <string name="select_image_permission_settings_rationale">Please, go to settings and enable the external storage permission</string>
-    <string name="select_image_too_large_error">Image is too large (%1$.2fMB). Max size is %2$.2fMB.</string>
-    <string name="select_image_invalid_dimensions">Image has invalid dimensions %s.</string>
+    <string name="take_photo_tab">Photo</string>
+    <string name="pick_image_tab">Gallery</string>
+
+    <string name="pick_image_permission_rationale">In order to select images from the local storage you should enable this permission.</string>
+    <string name="pick_image_permission_settings_rationale">Please, go to settings and enable external storage permission</string>
+    <string name="pick_image_permissions_rejected">You should enable external storage permissions</string>
+    <string name="pick_image_too_large_error">Image is too large (%1$.2fMB). Max size is %2$.2fMB.</string>
+    <string name="pick_image_invalid_dimensions">Image has invalid dimensions %s.</string>
+
+    <string name="take_photo_permission_rationale">In order to take photos you should enable this permission.</string>
+    <string name="take_photo_permission_settings_rationale">Please, go to settings and enable camera permission</string>
+    <string name="take_photo_permissions_rejected">You should enable camera permissions</string>
+    <string name="take_photo_camera_error">Error occurred while trying to use camera</string>
 
     <string name="no_connection_error">Please, enable connection and try again</string>
     <string name="generic_error">An error occurred. Try again later or contact the developer.</string>

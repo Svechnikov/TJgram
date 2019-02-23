@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.timeline
+package io.svechnikov.tjgram.features.timeline.child
 
 data class PostView(val postId: Long,
                     val title: String,

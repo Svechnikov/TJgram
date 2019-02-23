@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.timeline
+package io.svechnikov.tjgram.features.timeline.child
 
 import android.graphics.Typeface
 import android.text.SpannableString

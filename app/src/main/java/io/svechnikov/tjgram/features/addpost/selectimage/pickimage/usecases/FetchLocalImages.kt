@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.addpost.selectimage.usecases
+package io.svechnikov.tjgram.features.addpost.selectimage.pickimage.usecases
 
 import io.svechnikov.tjgram.base.LocalImages
 import io.svechnikov.tjgram.base.UseCase

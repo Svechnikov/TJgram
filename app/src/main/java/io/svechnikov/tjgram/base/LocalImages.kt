@@ -1,9 +1,22 @@
 package io.svechnikov.tjgram.base
 
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.os.Environment
 import android.provider.MediaStore
+import androidx.exifinterface.media.ExifInterface
+import io.svechnikov.tjgram.R
 import io.svechnikov.tjgram.base.data.LocalImage
+import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import javax.inject.Inject
+
 
 class LocalImages @Inject constructor(
     private val context: Context
@@ -23,6 +36,77 @@ class LocalImages @Inject constructor(
 
     fun getLocalImages(positionFrom: Int, loadSize: Int): List<LocalImage> {
         return getImagesBySelection(positionFrom, loadSize)
+    }
+
+    fun saveImage(data: ByteArray): Int {
+        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val name = "${System.currentTimeMillis()}.jpg"
+        val file = File(path, name)
+        val fos = FileOutputStream(file)
+
+        var realImage = BitmapFactory.decodeByteArray(data, 0, data.size)
+        val exif = ExifInterface(file.toString())
+        val orientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION)!!.toLowerCase()
+
+        // todo заменить `magic numbers` на именные константы
+        val degrees = when(orientation) {
+            "6", "0" -> 90
+            "8" -> 270
+            "3" -> 180
+            else -> 0
+        }
+
+        val width = realImage.width
+        val height = realImage.height
+        Timber.i("size ${width}x$height")
+        val matrix = Matrix()
+        matrix.setRotate(degrees.toFloat())
+
+        val rotatedImage = Bitmap.createBitmap(realImage, 0, 0, width, height, matrix, true)
+
+        try {
+            if (!rotatedImage.compress(Bitmap.CompressFormat.JPEG, 55, fos)) {
+                throw IOException()
+            }
+            return mediaStoreInsert(file.path, name, width, height)
+        }
+        finally {
+            realImage.recycle()
+            rotatedImage.recycle()
+            fos.write(data)
+            fos.close()
+        }
+    }
+
+    private fun mediaStoreInsert(path: String, name: String, width: Int, height: Int): Int {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, name)
+        values.put(MediaStore.Images.ImageColumns.BUCKET_ID, context.packageName)
+        values.put(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME, context.getString(R.string.app_name))
+        values.put(MediaStore.Images.ImageColumns.WIDTH, width)
+        values.put(MediaStore.Images.ImageColumns.HEIGHT, height)
+        values.put(MediaStore.Images.ImageColumns.DATA, path)
+        val uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
+
+        var cursor: Cursor? = null
+
+        try {
+            val projection = arrayOf(MediaStore.Images.ImageColumns._ID,
+                MediaStore.Images.ImageColumns.WIDTH,
+                MediaStore.Images.ImageColumns.HEIGHT)
+            cursor = context.contentResolver
+                .query(uri, projection,
+                    null, null, null)?.apply {
+                    moveToFirst()
+                    return getInt(
+                        getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID))
+                }
+        }
+        finally {
+            cursor?.close()
+        }
+
+        throw IOException()
     }
 
     private fun getImagesBySelection(positionFrom: Int,

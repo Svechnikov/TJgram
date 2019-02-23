@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
-                                                           android:layout_height="match_parent"
-                                                           xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:id="@+id/refresh">
-        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:id="@+id/posts"
-                                                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                               android:layout_height="match_parent"
+                                                               android:id="@+id/refresh">
+            <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       android:id="@+id/posts"
+                                                       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
 </layout>

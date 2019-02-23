@@ -1,4 +1,4 @@
-package io.svechnikov.tjgram.features.timeline.usecases
+package io.svechnikov.tjgram.features.timeline.child.usecases
 
 import io.svechnikov.tjgram.base.UseCase
 import io.svechnikov.tjgram.base.db.BaseDatabase

@@ -1,11 +1,11 @@
-package io.svechnikov.tjgram.features.addpost.selectimage
+package io.svechnikov.tjgram.features.addpost.selectimage.pickimage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import io.svechnikov.tjgram.base.data.LocalImage
-import io.svechnikov.tjgram.features.addpost.selectimage.usecases.FetchLocalImages
+import io.svechnikov.tjgram.features.addpost.selectimage.pickimage.usecases.FetchLocalImages
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ImageDataSource constructor(
     private val fetchImages: FetchLocalImages,
-    private val stateCallback: (SelectImageState) -> Unit,
+    private val stateCallback: (PickImageState) -> Unit,
     private val errorCallback: (Throwable) -> Unit
 ): PageKeyedDataSource<Int, LocalImage>(), CoroutineScope {
 
@@ -26,18 +26,18 @@ class ImageDataSource constructor(
     override fun loadInitial(params: LoadInitialParams<Int>,
                              callback: LoadInitialCallback<Int, LocalImage>) {
         if (firstLoading) {
-            stateCallback(SelectImageState.Loading)
+            stateCallback(PickImageState.Loading)
         }
         else {
-            stateCallback(SelectImageState.Refreshing)
+            stateCallback(PickImageState.Refreshing)
         }
 
         fetchImages(FetchLocalImages.Params(0, params.requestedLoadSize)) {
             it.either({
                 errorCallback(it)
-                stateCallback(SelectImageState.Loaded)
+                stateCallback(PickImageState.Loaded)
             }, {
-                stateCallback(SelectImageState.Loaded)
+                stateCallback(PickImageState.Loaded)
                 val nextKey = if (it.size < params.requestedLoadSize) {
                     null
                 }
@@ -79,7 +79,7 @@ class ImageDataSource constructor(
 
     class Factory constructor(
         private val fetchImages: FetchLocalImages,
-        private val stateCallback: (SelectImageState) -> Unit,
+        private val stateCallback: (PickImageState) -> Unit,
         private val errorCallback: (Throwable) -> Unit
     ): DataSource.Factory<Int, LocalImage>() {
 

@@ -2,12 +2,13 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="post"
-                  type="io.svechnikov.tjgram.features.timeline.PostView" />
+                  type="io.svechnikov.tjgram.features.timeline.child.PostView" />
         <import type="android.view.View" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_marginTop="@dimen/timeline_post_margin"
+                  android:layout_marginBottom="@dimen/timeline_post_margin"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
 
