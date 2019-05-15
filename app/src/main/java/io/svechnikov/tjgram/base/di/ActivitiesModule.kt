@@ -12,12 +12,14 @@ import io.svechnikov.tjgram.features.auth.selectmethod.SelectAuthMethodFragment
 import io.svechnikov.tjgram.features.timeline.parent.TimelineParentFragment
 import io.svechnikov.tjgram.features.timeline.child.TimelineFragment
 
+@Suppress("unused")
 @Module(subcomponents = [])
 abstract class ActivitiesModule {
     @ContributesAndroidInjector(modules = [MainActivityFragmentsModule::class])
     abstract fun contributesMainActivity(): MainActivity
 }
 
+@Suppress("unused")
 @Module(subcomponents = [])
 abstract class MainActivityFragmentsModule {
 

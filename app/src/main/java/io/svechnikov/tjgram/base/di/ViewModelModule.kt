@@ -34,6 +34,7 @@ class ViewModelFactory
 @MapKey
 internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
+@Suppress("unused")
 @Module
 abstract class ViewModelModule {
 

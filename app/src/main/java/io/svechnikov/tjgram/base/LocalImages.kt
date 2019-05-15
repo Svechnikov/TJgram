@@ -44,7 +44,7 @@ class LocalImages @Inject constructor(
         val file = File(path, name)
         val fos = FileOutputStream(file)
 
-        var realImage = BitmapFactory.decodeByteArray(data, 0, data.size)
+        val realImage = BitmapFactory.decodeByteArray(data, 0, data.size)
         val exif = ExifInterface(file.toString())
         val orientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION)!!.toLowerCase()
 
@@ -91,9 +91,7 @@ class LocalImages @Inject constructor(
         var cursor: Cursor? = null
 
         try {
-            val projection = arrayOf(MediaStore.Images.ImageColumns._ID,
-                MediaStore.Images.ImageColumns.WIDTH,
-                MediaStore.Images.ImageColumns.HEIGHT)
+            val projection = arrayOf(MediaStore.Images.ImageColumns._ID)
             cursor = context.contentResolver
                 .query(uri, projection,
                     null, null, null)?.apply {

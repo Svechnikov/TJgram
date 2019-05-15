@@ -213,7 +213,6 @@ class BaseCamera2(private val context: Context) : BaseCamera {
             close()
             onErrorCallback(e)
         }
-
     }
 
     private val onImageAvailableListener = ImageReader.OnImageAvailableListener {
