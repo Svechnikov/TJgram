@@ -2,8 +2,6 @@
 
 Приложение для просмотра постов в TJgram.
 
-![Главный экран](https://raw.githubusercontent.com/Svechnikov/TJgram/master/screenshots/1.png)
-
 При первом запуске посты загружаются с бэкенда, после чего кэшируются в базе данных `Room` (для обновления нужно
 потянуть `SwipeRefreshLayout`). Посты загружаются по 10 штук (реализована "бесконечная" прокрутка при помощи
 `PagedList` и `RecyclerView`). За общение с бэкендом отвечают `Retrofit` и `OkHttp`.
